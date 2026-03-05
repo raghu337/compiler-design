@@ -1,0 +1,24 @@
+%{
+#include <stdio.h>
+%}
+
+%%
+(http|https):\/\/[a-zA-Z0-9.-]+\.(com|in|org|net)(\/[a-zA-Z0-9._\/-]*)?   { 
+    printf("\nURL Valid\n"); 
+}
+.+   { 
+    printf("\nURL Invalid\n"); 
+}
+%%
+
+int yywrap()
+{
+    return 1;
+}
+
+int main()
+{
+    printf("Enter URL: ");
+    yylex();
+    return 0;
+}
