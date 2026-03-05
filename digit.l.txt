@@ -1,0 +1,26 @@
+%{
+#include<stdio.h>
+extern FILE *yyin;
+%}
+
+%%
+
+[0-9]+          { printf("%s -> DIGIT\n", yytext); }
+[ \t]+          { }
+.|\n            { printf("%s -> NOT A DIGIT\n", yytext); }
+
+%%
+
+int yywrap() { return 1; }
+
+int main() {
+    yyin = fopen("test_digit.txt", "r");
+    if(!yyin) {
+        printf("Error: Cannot open test_digit.txt\n");
+        return 1;
+    }
+    printf("=== Digit Validation ===\n\n");
+    yylex();
+    fclose(yyin);
+    return 0;
+} 
